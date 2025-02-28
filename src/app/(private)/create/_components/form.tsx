@@ -1,4 +1,4 @@
-import { FormField, FormItem, FormLabel, FormControl } from '@/components/ui/form'
+import { FormField, FormItem, FormControl } from '@/components/ui/form'
 import { Form } from '@/components/ui/form'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -6,22 +6,36 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { createProjectSchema, CreateProjectValues } from '@/server/api/routers/create/validation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { api } from '@/trpc/react'
+import { toast } from 'sonner'
+import useRefetch from '@/hooks/use-refetch'
 
 export default function CreateForm() {
     const form = useForm<CreateProjectValues>({
         resolver: zodResolver(createProjectSchema),
         defaultValues: {
             projectName: "",
-            reportUrl: "",
+            githubUrl: "",
             githubToken: "",
         }
     })
+    const createProject = api.project.create.useMutation()
+    const refetch = useRefetch()
+
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-
         await form.handleSubmit(async (data) => {
-            console.log(data)
+            createProject.mutate(data, {
+                onSuccess: () => {
+                    toast.success('Project created successfully')
+                    form.reset()
+                    refetch()
+                },
+                onError: () => {
+                    toast.error('Failed to create project')
+                }
+            })
         })();
     }
     return (
@@ -42,7 +56,7 @@ export default function CreateForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="reportUrl"
+                    name="githubUrl"
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
@@ -66,7 +80,7 @@ export default function CreateForm() {
                         </FormItem>
                     )}
                 />
-                <Button type='submit'>Create Project</Button>
+                <Button type='submit' disabled={createProject.isPending}>Create Project</Button>
             </form>
         </Form>
     )

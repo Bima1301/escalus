@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar"
+import useProject from "@/hooks/use-project"
 import { cn } from "@/lib/utils"
 import { Bot, CreditCard, LayoutDashboard, Plus, Presentation } from "lucide-react"
 import Image from "next/image"
@@ -31,15 +32,11 @@ const sidebarItems = [
     },
 ]
 
-const projects = [
-    {
-        name: 'Project 1',
-    }
-]
 
 export default function AppSidebar() {
     const pathname = usePathname()
     const { open } = useSidebar()
+    const { projects, selectedprojectId, setSelectedProjectId } = useProject()
     return (
         <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader>
@@ -83,14 +80,14 @@ export default function AppSidebar() {
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {projects.map((project) => {
+                            {projects?.map((project) => {
                                 return (
-                                    <SidebarMenuItem key={project.name}>
+                                    <SidebarMenuItem key={project.id}>
                                         <SidebarMenuButton asChild>
-                                            <div>
+                                            <div onClick={() => setSelectedProjectId(project.id)}>
                                                 <div className={cn("rounded-sm border size-6 flex items-center justify-center text-sm bg-white text-primary",
                                                     {
-                                                        'bg-primary text-white': true,
+                                                        'bg-primary text-white': project.id === selectedprojectId,
                                                     }
                                                 )}>
                                                     {project.name.charAt(0)}
