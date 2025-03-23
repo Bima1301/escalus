@@ -38,7 +38,7 @@ export default function AppSidebar() {
     const { open } = useSidebar()
     const { projects, selectedprojectId, setSelectedProjectId } = useProject()
     return (
-        <Sidebar collapsible="icon" variant="floating">
+        <Sidebar collapsible="icon" variant="sidebar" className="bg-white">
             <SidebarHeader>
                 <div className="flex items-center gap-2">
                     <Image src="/logo.png" alt="logo" width={50} height={50} />
