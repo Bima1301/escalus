@@ -32,7 +32,7 @@ export default function CreateForm() {
                     form.reset()
                     refetch()
                 },
-                onError: () => {
+                onError: (e) => {
                     toast.error('Failed to create project')
                 }
             })

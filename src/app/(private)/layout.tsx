@@ -8,7 +8,7 @@ type Props = {
 
 const layout = ({ children }: Props) => {
     return (
-        <SidebarProvider className="bg-gray-100">
+        <SidebarProvider className="bg-gray-100 ">
             <AppSidebar />
             <main className="w-full m-2">
                 <div className="flex items-center gap-2 bg-sidebar shadow rounded-md p-2 px-4 bg-white">
