@@ -67,6 +67,7 @@ const AskQuestionCard = () => {
                 answer={answer}
                 filesReferences={filesReferences}
                 setAnswer={setAnswer}
+                question={question}
             />
         </>
     )

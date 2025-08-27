@@ -1,8 +1,9 @@
 import { pollCommits } from "@/lib/github";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../trpc";
-import { createProjectSchema } from "./validation";
+import { createProjectSchema, saveQuestionProjectSchema } from "./validation";
 import { z } from "zod";
 import { indexGithubRepo } from "@/lib/github-loader";
+import { requiredString } from "@/lib/validations/global";
 
 export const projectRouter = createTRPCRouter({
     create: protectedProcedure.input(
@@ -36,5 +37,18 @@ export const projectRouter = createTRPCRouter({
     })).query(async ({ ctx, input }) => {
         pollCommits(input.projectId).then().catch(console.error)
         return await ctx.db.commit.findMany({ where: { projectId: input.projectId } })
+    }),
+    saveAnswer: protectedProcedure.input(
+        saveQuestionProjectSchema
+    ).mutation(async ({ ctx, input }) => {
+        return await ctx.db.question.create({
+            data: {
+                answer: input.answer,
+                filesReferences: input.filesReferences,
+                projectId: input.projectId,
+                question: input.question,
+                userId: ctx.user.userId,
+            }
+        })
     })
 })
