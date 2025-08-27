@@ -8,8 +8,6 @@ export const octokit = new Octokit({
     auth: env.GITHUB_TOKEN
 })
 
-const githubUrl = 'https://github.com/Bima1301/new-portofolio-website'
-
 type Response = {
     commitHash: string
     commitMessage: string

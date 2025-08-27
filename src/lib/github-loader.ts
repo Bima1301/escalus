@@ -1,7 +1,7 @@
 import { GithubRepoLoader } from '@langchain/community/document_loaders/web/github'
 import { Document } from '@langchain/core/documents'
-import { generateEmbedding, summariseCode } from './gemini'
 import { db } from '@/server/db'
+import { generateEmbedding, summariseCode } from './gemini'
 
 export async function loadGithubRepo(githubUrl: string, githubToken?: string) {
     const loader = new GithubRepoLoader(githubUrl, {

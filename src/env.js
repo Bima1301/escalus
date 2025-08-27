@@ -14,6 +14,8 @@ export const env = createEnv({
     GITHUB_TOKEN: z.string(),
     CLERK_SECRET_KEY: z.string(),
     GEMINI_API_KEY: z.string(),
+    DEEPSEEK_API_KEY: z.string(),
+    OPENAI_API_KEY: z.string(),
   },
 
   /**
@@ -54,6 +56,8 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
