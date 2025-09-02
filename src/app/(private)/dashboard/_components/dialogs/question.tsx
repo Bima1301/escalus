@@ -7,6 +7,7 @@ import CodeReferences from '../code-references'
 import { api } from '@/trpc/react'
 import useProject from '@/hooks/use-project'
 import { toast } from 'sonner'
+import useRefetch from '@/hooks/use-refetch'
 
 interface Props {
     open: boolean
@@ -19,6 +20,7 @@ interface Props {
 
 export default function QuestionDialog({ open, onOpenChange, answer, question, setAnswer, filesReferences }: Props) {
     const { project } = useProject()
+    const refetch = useRefetch()
 
     const saveAnswerMutation = api.project.saveAnswer.useMutation()
 
@@ -27,9 +29,11 @@ export default function QuestionDialog({ open, onOpenChange, answer, question, s
             projectId: project!.id,
             question: question,
             answer: answer,
+            filesReferences
         }, {
             onSuccess: () => {
                 toast.success('Answer saved')
+                refetch()
             },
             onError: () => {
                 toast.error('Failed to save answer')

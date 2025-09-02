@@ -17,7 +17,7 @@ const sidebarItems = [
     },
     {
         title: 'Q&A',
-        url: '/qa',
+        url: '/qna',
         icon: Bot
     },
     {

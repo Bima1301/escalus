@@ -24,10 +24,6 @@ export default function DashboardPageClient() {
                         </p>
                     </div>
                 </div>
-
-                <div className="flex items-center gap-4">
-                    Team Members
-                </div>
             </div>
 
             <div className="mt-4">

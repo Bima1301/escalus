@@ -19,7 +19,7 @@ export async function askQuestion(question: string, projectId: string) {
         SELECT "fileName", "sourceCode", "summary",
         1 - ("summaryEmbedding" <=> ${vectorQuery}::vector) AS similarity
         FROM "SourceCodeEmbedding"
-        WHERE 1 - ("summaryEmbedding" <=> ${vectorQuery}::vector) > .1
+        WHERE 1 - ("summaryEmbedding" <=> ${vectorQuery}::vector) > .3
         AND "projectId" = ${projectId}
         ORDER BY similarity DESC
         LIMIT 10
@@ -37,7 +37,7 @@ export async function askQuestion(question: string, projectId: string) {
         const { textStream } = await streamText({
 
             //@ts-ignore
-            model: google('gemini-1.5-flash'),
+            model: google('gemini-2.0-flash'),
             prompt: `
         You are an AI code assistant who answers questions about the codebase. Your target audience is a technical intern who is learning and needs guidance.  
 AI assistant is a brand new, powerful, human-like artificial intelligence.  

@@ -11,6 +11,9 @@ const config = {
       {
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        hostname: "img.clerk.com",
+      },
     ],
   },
 };
